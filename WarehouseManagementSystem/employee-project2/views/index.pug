@@ -1,0 +1,30 @@
+extends layout
+
+block content
+  .container-content
+    h1.text-center.text-primary.mb-4 Danh sách sản phẩm
+    a.btn.btn-primary.mb-3(href="/add") + Thêm sản phẩm
+    .card.shadow
+      .card-body
+        table.table.table-bordered.table-hover
+          thead.table-primary
+            tr
+              th Tên sản phẩm
+              th Mã sản phẩm
+              th Tình trạng
+              th Công ty sản xuất
+              th Số lượng
+              th Chỉnh sửa
+          tbody
+            each product in products
+              tr
+                td= product.name
+                td= product.code
+                td 
+                  span.badge(class=product.status == "Còn hàng" ? "bg-success" : "bg-danger")= product.status
+                td= product.manufacturer
+                td= product.quantity
+                td
+                  a.btn.btn-warning.btn-sm.me-2(href=`/edit/${product._id}`) Sửa
+                  a.btn.btn-danger.btn-sm(href=`/delete/${product._id}`) Xóa
+                  a.btn.btn-success(href=`/invoice/create?productId=${product._id}`) Xuất hóa đơn

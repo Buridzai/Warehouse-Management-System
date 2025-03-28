@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  .container-content
+    h1.text-center.text-primary.mb-4 Thêm sản phẩm mới
+    .card.shadow
+      .card-body
+        form(method="POST" action="/add")
+          div.mb-3
+            label.form-label Tên sản phẩm
+            input.form-control(type="text" name="name" placeholder="Nhập tên sản phẩm" required)
+          div.mb-3
+            label.form-label Mã sản phẩm
+            input.form-control(type="text" name="code" placeholder="Nhập mã sản phẩm" required)
+          div.mb-3
+            label.form-label Tình trạng
+            select.form-select(name="status" required)
+              option(value="") -- Chọn tình trạng --
+              option(value="Còn hàng") Còn hàng
+              option(value="Hết hàng") Hết hàng
+          div.mb-3
+            label.form-label Công ty sản xuất
+            input.form-control(type="text" name="manufacturer" placeholder="Nhập công ty sản xuất" required)
+          div.mb-3
+            label.form-label Số lượng
+            input.form-control(type="number" name="quantity" required min="1" placeholder="Nhập số lượng")
+          button.btn.btn-success.w-100(type="submit") Thêm sản phẩm

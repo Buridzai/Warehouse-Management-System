@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  .container-content
+    h1.text-center.text-primary.mb-4 Sửa sản phẩm
+    .card.shadow
+      .card-body
+        form(method="POST" action=`/edit/${product._id}`)
+          div.mb-3
+            label.form-label Tên sản phẩm
+            input.form-control(type="text" name="name" value=product.name required)
+          div.mb-3
+            label.form-label Mã sản phẩm
+            input.form-control(type="text" name="code" value=product.code required)
+          div.mb-3
+            label.form-label Tình trạng
+            select.form-select(name="status" required)
+              option(value="Còn hàng" selected=product.status=="Còn hàng") Còn hàng
+              option(value="Hết hàng" selected=product.status=="Hết hàng") Hết hàng
+          div.mb-3
+            label.form-label Công ty sản xuất
+            input.form-control(type="text" name="manufacturer" value=product.manufacturer required)
+          div.mb-3
+            label.form-label Số lượng
+            input.form-control(type="number" name="quantity" value=product.quantity required min="1")
+          button.btn.btn-warning.w-100(type="submit") Cập nhật

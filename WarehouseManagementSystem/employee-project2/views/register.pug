@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  .container-content
+    h1.text-center.text-primary.mb-4 Đăng ký
+    .card.shadow
+      .card-body
+        form(method="POST" action="/register")
+          div.mb-3
+            label.form-label Tên đăng nhập
+            input.form-control(type="text" name="username" required placeholder="Nhập tên đăng nhập")
+          div.mb-3
+            label.form-label Mật khẩu
+            input.form-control(type="password" name="password" required placeholder="Nhập mật khẩu")
+          button.btn.btn-primary.w-100(type="submit") Đăng ký
+        p.mt-3.text-center
+          a(href="/login") Đã có tài khoản? Đăng nhập

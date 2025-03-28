@@ -1,0 +1,54 @@
+extends layout
+
+block content
+    h1 📜 Danh sách hóa đơn (Admin)
+
+    // Thanh tìm kiếm
+    .mb-3
+        input#searchInput.form-control(type="text", placeholder="🔍 Nhập mã hóa đơn hoặc tên sản phẩm để tìm kiếm...")
+
+    table#invoiceTable.table.table-hover.table-bordered.text-center
+        thead.table-dark
+            tr
+                th 🆔 Mã hóa đơn
+                th 🏷️ Tên sản phẩm
+                th 🔢 Số lượng
+                th 🚚 Trạng thái
+                th 📅 Ngày xuất
+                th 🛠️ Hành động
+        tbody
+            each invoice in invoices
+                tr
+                    td #{invoice._id}
+                    td #{invoice.product ? invoice.product.name : "Sản phẩm không tồn tại"} 
+                    td #{invoice.quantity}
+                    td 
+                        if invoice.status === "Đã giao"
+                            span.badge.badge-success.text-dark #{invoice.status}
+                        else if invoice.status === "Đang xử lý"
+                            span.badge.badge-warning.text-dark #{invoice.status}
+                        else 
+                            span.badge.badge-secondary.text-dark #{invoice.status}
+                    td #{invoice.date.toLocaleDateString('vi-VN')}
+                    td 
+                        a.btn.btn-primary.btn-sm.me-2(href=`/invoice/edit/${invoice._id}`) ✏️ Chỉnh sửa
+                        form.d-inline(action=`/invoice/delete/${invoice._id}`, method="POST")
+                            button.btn.btn-danger.btn-sm(type="submit", onclick="return confirm('Bạn có chắc chắn muốn xóa hóa đơn này?')") 🗑️ Xóa
+
+    // JavaScript để lọc danh sách hóa đơn theo tìm kiếm
+    script.
+        document.getElementById("searchInput").addEventListener("keyup", function() {
+            let searchValue = this.value.toLowerCase();
+            let rows = document.querySelectorAll("#invoiceTable tbody tr");
+
+            rows.forEach(row => {
+                let invoiceId = row.children[0].innerText.toLowerCase();
+                let productName = row.children[1].innerText.toLowerCase();
+
+                if (invoiceId.includes(searchValue) || productName.includes(searchValue)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });

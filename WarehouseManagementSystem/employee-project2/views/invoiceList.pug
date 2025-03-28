@@ -1,0 +1,27 @@
+extends layout
+
+block content
+    .container
+        h1.text-center.my-4 🧾 Danh sách hóa đơn
+
+        table.table.table-striped.table-hover.shadow-lg
+            thead.table-dark
+                tr
+                    th Tên sản phẩm
+                    th Số lượng
+                    th Tình trạng
+                    th Ngày xuất
+                    if user && user.role === 'admin'
+                        th Hành động
+            tbody
+                each invoice in invoices
+                    tr
+                        td #{invoice.product ? invoice.product.name : "Sản phẩm không tồn tại"}
+                        td #{invoice.quantity}
+                        td.badge(
+                            class= invoice.status === "Hoàn thành" ? "bg-success" : invoice.status === "Đang giao" ? "bg-warning" : "bg-secondary"
+                        ) #{invoice.status}
+                        td #{invoice.date.toLocaleDateString()}
+                        if user && user.role === 'admin'
+                            td
+                                a.btn.btn-warning.btn-sm(href=`/invoice/edit/${invoice._id}`) ✏️ Chỉnh sửa

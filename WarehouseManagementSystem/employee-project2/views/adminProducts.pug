@@ -1,0 +1,26 @@
+extends layout
+
+block content
+    .container
+        h1.text-center.my-4 🏢 Danh sách sản phẩm trong kho
+
+        table.table.table-striped.table-hover.shadow-lg
+            thead.table-dark
+                tr
+                    th 📦 Tên sản phẩm
+                    th 🔢 Mã sản phẩm
+                    th 🔢 Số lượng
+                    th 🚚 Trạng thái
+                    th 🏭 Nhà sản xuất
+                    th 🛠️ Hành động
+            tbody
+                each product in products
+                    tr
+                        td #{product.name}
+                        td #{product.code}
+                        td #{product.quantity}
+                        td #{product.status}
+                        td #{product.manufacturer}
+                        td 
+                            form.d-inline(action=`/product/delete/${product._id}`, method="POST")
+                                button.btn.btn-danger.btn-sm(type="submit", onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')") 🗑️ Xóa

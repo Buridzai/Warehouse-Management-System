@@ -1,0 +1,21 @@
+nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
+  .container-fluid
+    a.navbar-brand(href="/") Hệ thống quản lý kho
+    button.navbar-toggler(type="button", data-bs-toggle="collapse", data-bs-target="#navbarNav")
+      span.navbar-toggler-icon
+    #navbarNav.collapse.navbar-collapse
+      ul.navbar-nav.ms-auto
+        if user
+          if user.role === "admin"
+            li.nav-item
+              a.nav-link(href="/invoice/all") 📋 Quản lý hóa đơn
+            li.nav-item
+              a.nav-link(href="/product/all") 📦 Quản lý sản phẩm
+          else
+            li.nav-item
+              a.nav-link(href="/invoice/list") 🧾 Xem hóa đơn
+          li.nav-item
+            a.nav-link(href="/logout") 🚪 Đăng xuất
+        else
+          li.nav-item
+            a.nav-link(href="/login") 🔑 Đăng nhập

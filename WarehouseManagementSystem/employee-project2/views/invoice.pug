@@ -1,0 +1,26 @@
+extends layout
+
+block content
+    .container
+        h1.text-center Xuất hóa đơn
+
+        form(action="/invoice/create" method="POST").card.p-4.shadow-lg
+            .mb-3
+                label.form-label(for="productId") Sản phẩm:
+                select.form-select(name="productId" required)
+                    each product in products
+                        option(value=product._id) #{product.name} - Còn #{product.quantity}
+
+            .mb-3
+                label.form-label(for="quantity") Số lượng:
+                input.form-control(type="number" name="quantity" required min="1")
+
+            .mb-3
+                label.form-label(for="status") Tình trạng đơn hàng:
+                select.form-select(name="status")
+                    option(value="Chờ xử lý") Chờ xử lý
+                    option(value="Đang giao") Đang giao
+                    option(value="Hoàn thành") Hoàn thành
+
+            .d-flex.justify-content-center.mt-3
+                button.btn.btn-primary(type="submit") 🚀 Xuất hóa đơn
